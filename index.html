@@ -17,19 +17,44 @@
     :root{
       --bg0:#07080c;
       --bg1:#0b0d12;
-      --card: rgba(255,255,255,.06);
+      --bg2:#0f1320;
+      --card: rgba(255,255,255,.055);
+      --card2: rgba(255,255,255,.075);
       --stroke: rgba(255,255,255,.12);
+      --stroke2: rgba(255,255,255,.18);
       --text:#eef2ff;
-      --muted: rgba(238,242,255,.72);
+      --muted: rgba(238,242,255,.74);
       --muted2: rgba(238,242,255,.56);
       --brand:#7c3aed;
       --brand2:#38bdf8;
-      --shadow: 0 30px 70px rgba(0,0,0,.45);
-      --shadow2: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 22px;
-      --radius2: 16px;
-      --max: 1040px;
+      --shadow: 0 30px 80px rgba(0,0,0,.50);
+      --shadow2: 0 12px 32px rgba(0,0,0,.38);
+      --radius: 24px;
+      --radius2: 18px;
+      --max: 1120px;
       --ease: cubic-bezier(.2,.9,.1,1);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --glowA: rgba(124,58,237,.22);
+      --glowB: rgba(56,189,248,.16);
+    }
+
+    /* light theme (optional toggle) */
+    [data-theme="light"]{
+      --bg0:#f6f7fb;
+      --bg1:#ffffff;
+      --bg2:#f3f5fb;
+      --card: rgba(0,0,0,.04);
+      --card2: rgba(0,0,0,.06);
+      --stroke: rgba(0,0,0,.10);
+      --stroke2: rgba(0,0,0,.14);
+      --text:#0b1020;
+      --muted: rgba(11,16,32,.74);
+      --muted2: rgba(11,16,32,.55);
+      --shadow: 0 26px 70px rgba(8,12,24,.16);
+      --shadow2: 0 10px 26px rgba(8,12,24,.12);
+      --glowA: rgba(124,58,237,.12);
+      --glowB: rgba(56,189,248,.10);
     }
 
     *{box-sizing:border-box}
@@ -40,8 +65,9 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       color:var(--text);
       background:
-        radial-gradient(900px 600px at 10% 10%, rgba(124,58,237,.22), transparent 60%),
-        radial-gradient(900px 600px at 90% 20%, rgba(56,189,248,.16), transparent 55%),
+        radial-gradient(1100px 700px at 12% 10%, var(--glowA), transparent 60%),
+        radial-gradient(1000px 650px at 88% 18%, var(--glowB), transparent 58%),
+        radial-gradient(900px 650px at 55% 92%, rgba(34,197,94,.10), transparent 62%),
         linear-gradient(180deg, var(--bg0), var(--bg1) 52%, var(--bg0));
       overflow-x:hidden;
       text-rendering: geometricPrecision;
@@ -53,32 +79,52 @@
     button{font:inherit}
 
     /* background grain */
-    .grain{pointer-events:none; position:fixed; inset:-30%; opacity:.08; filter: contrast(120%) brightness(120%);
+    .grain{
+      pointer-events:none;
+      position:fixed; inset:-30%;
+      opacity:.08;
+      filter: contrast(120%) brightness(120%);
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
       transform: translate3d(0,0,0);
     }
 
-    .wrap{max-width:var(--max); margin:0 auto; padding: 0 22px}
+    /* subtle cursor glow */
+    .cursor-glow{
+      pointer-events:none;
+      position:fixed;
+      width:520px; height:520px;
+      border-radius:999px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.14), transparent 58%),
+                  radial-gradient(circle at 70% 40%, rgba(56,189,248,.12), transparent 60%);
+      filter: blur(10px);
+      opacity:.55;
+      mix-blend-mode: screen;
+      z-index:0;
+    }
+    [data-theme="light"] .cursor-glow{mix-blend-mode: multiply; opacity:.20}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding: 0 22px; position:relative; z-index:1}
 
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(7,8,12,.86), rgba(7,8,12,.55));
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--bg0) 80%, transparent), color-mix(in oklab, var(--bg0) 60%, transparent));
+      border-bottom: 1px solid color-mix(in oklab, var(--stroke) 70%, transparent);
     }
 
-    .nav{display:flex; align-items:center; justify-content:space-between; padding: 16px 0}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding: 14px 0}
 
-    .brand{display:flex; align-items:center; gap:12px; font-weight: 760; letter-spacing: .2px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight: 820; letter-spacing: .2px}
 
     .logo{
       width:38px; height:38px; border-radius: 12px;
       background:
-        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.7), rgba(255,255,255,0)),
-        linear-gradient(135deg, rgba(124,58,237,.95), rgba(56,189,248,.82));
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.75), rgba(255,255,255,0)),
+        linear-gradient(135deg, rgba(124,58,237,.98), rgba(56,189,248,.82));
       box-shadow: 0 18px 40px rgba(124,58,237,.22), 0 18px 60px rgba(56,189,248,.12);
-      border: 1px solid rgba(255,255,255,.16);
+      border: 1px solid color-mix(in oklab, var(--stroke2) 80%, transparent);
       position:relative;
       overflow:hidden;
     }
@@ -87,51 +133,79 @@
       position:absolute; inset:-40%;
       background: conic-gradient(from 180deg, rgba(255,255,255,.0), rgba(255,255,255,.28), rgba(255,255,255,.0));
       animation: spin 11s linear infinite;
-      opacity:.6;
+      opacity:.62;
     }
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    .navlinks{display:flex; gap:18px; align-items:center}
+    .navlinks{display:flex; gap:8px; align-items:center}
     .navlinks a{
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 650;
       font-size: 14px;
-      padding: 8px 10px;
-      border-radius: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
       transition: transform .2s var(--ease), background .2s var(--ease), color .2s var(--ease);
     }
-    .navlinks a:hover{color: var(--text); background: rgba(255,255,255,.06); transform: translateY(-1px)}
+    .navlinks a:hover{color: var(--text); background: color-mix(in oklab, var(--card2) 90%, transparent); transform: translateY(-1px)}
+
+    .cta{display:flex; gap:10px; align-items:center}
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
+      padding: 11px 14px;
+      border-radius: 16px;
+      border: 1px solid color-mix(in oklab, var(--stroke) 80%, transparent);
+      background: color-mix(in oklab, var(--card) 88%, transparent);
       box-shadow: var(--shadow2);
       color: var(--text);
-      font-weight: 720;
+      font-weight: 760;
       font-size: 14px;
       transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
       user-select:none;
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.22)}
+    .btn:hover{ transform: translateY(-1px); background: color-mix(in oklab, var(--card2) 92%, transparent); border-color: color-mix(in oklab, var(--stroke2) 82%, transparent)}
     .btn:active{ transform: translateY(0px) scale(.99)}
 
     .btn.primary{
       background: linear-gradient(135deg, rgba(124,58,237,.98), rgba(56,189,248,.78));
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 26px 60px rgba(124,58,237,.22), 0 18px 50px rgba(56,189,248,.12);
+      border-color: color-mix(in oklab, var(--stroke2) 85%, transparent);
+      box-shadow: 0 26px 70px rgba(124,58,237,.20), 0 20px 60px rgba(56,189,248,.10);
     }
 
-    main{padding: 54px 0 78px}
+    .icon{width:16px; height:16px; display:inline-block; vertical-align:-3px}
 
-    .hero{display:grid; grid-template-columns: 1.3fr .7fr; gap: 18px; align-items:stretch}
+    /* mobile nav */
+    .menuBtn{display:none}
+    .drawer{
+      display:none;
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.45);
+      z-index:60;
+    }
+    [data-theme="light"] .drawer{background: rgba(10,12,16,.20)}
+    .drawerPanel{
+      position:absolute; right:14px; top:64px;
+      width:min(360px, calc(100vw - 28px));
+      border-radius: 20px;
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: color-mix(in oklab, var(--bg1) 86%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .drawerPanel a{display:block; padding:14px 14px; font-weight:720; color:var(--muted)}
+    .drawerPanel a:hover{background: color-mix(in oklab, var(--card2) 92%, transparent); color:var(--text)}
+
+    main{padding: 56px 0 84px}
+
+    /* hero */
+    .hero{display:grid; grid-template-columns: 1.2fr .8fr; gap: 16px; align-items:stretch}
 
     .panel{
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card) 94%, transparent), color-mix(in oklab, var(--card) 70%, transparent));
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
@@ -141,9 +215,9 @@
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(900px 260px at 10% 0%, rgba(124,58,237,.18), transparent 60%),
-        radial-gradient(900px 260px at 90% 0%, rgba(56,189,248,.14), transparent 60%);
-      opacity:.9;
+        radial-gradient(900px 300px at 10% 0%, rgba(124,58,237,.16), transparent 60%),
+        radial-gradient(900px 300px at 90% 0%, rgba(56,189,248,.12), transparent 60%);
+      opacity:.95;
       pointer-events:none;
     }
 
@@ -153,44 +227,52 @@
       display:inline-flex; align-items:center; gap:10px;
       padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: color-mix(in oklab, var(--bg2) 40%, transparent);
       color: var(--muted);
-      font-weight: 700;
+      font-weight: 760;
       font-size: 13px;
     }
 
     .dot{width:8px; height:8px; border-radius:999px; background: rgba(56,189,248,.95); box-shadow: 0 0 0 6px rgba(56,189,248,.14)}
 
-    h1{margin: 16px 0 10px; font-size: clamp(34px, 5.3vw, 58px); line-height: 1.03; letter-spacing: -0.9px}
+    h1{margin: 16px 0 10px; font-size: clamp(36px, 5.2vw, 62px); line-height: 1.02; letter-spacing: -1.0px}
 
-    .lead{margin: 10px 0 22px; color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 62ch}
+    .lead{margin: 10px 0 22px; color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 66ch}
 
     .hero-actions{display:flex; gap:12px; flex-wrap:wrap}
 
     .chips{display:flex; gap:10px; flex-wrap:wrap; margin-top: 18px}
-    .chip{padding: 10px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.045);
-      color: var(--muted); font-weight: 650; font-size: 13px}
+    .chip{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in oklab, var(--stroke) 80%, transparent);
+      background: color-mix(in oklab, var(--card) 88%, transparent);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px
+    }
 
     /* right panel */
     .avatar{
       width: 100%; aspect-ratio: 16/12;
       border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
       background:
-        radial-gradient(300px 180px at 30% 30%, rgba(124,58,237,.28), transparent 60%),
-        radial-gradient(300px 180px at 70% 20%, rgba(56,189,248,.22), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        radial-gradient(320px 190px at 30% 30%, rgba(124,58,237,.24), transparent 60%),
+        radial-gradient(320px 190px at 70% 20%, rgba(56,189,248,.20), transparent 60%),
+        linear-gradient(180deg, color-mix(in oklab, var(--card) 70%, transparent), transparent);
       position:relative; overflow:hidden;
     }
-    .avatar svg{position:absolute; inset:0; width:100%; height:100%; opacity:.85}
+    .avatar svg{position:absolute; inset:0; width:100%; height:100%; opacity:.88}
 
     .meta{margin-top: 16px; display:grid; gap:10px}
     .meta-row{display:flex; justify-content:space-between; gap:14px; align-items:center}
-    .meta-row span{color: var(--muted2); font-weight: 650; font-size: 13px}
-    .meta-row strong{font-size: 13px; font-weight: 760}
+    .meta-row span{color: var(--muted2); font-weight: 700; font-size: 13px}
+    .meta-row strong{font-size: 13px; font-weight: 820}
 
-    .section-head{display:flex; align-items:end; justify-content:space-between; gap:16px; margin: 44px 0 14px}
+    /* sections */
+    .section-head{display:flex; align-items:end; justify-content:space-between; gap:16px; margin: 46px 0 14px}
     .section-head h2{margin:0; font-size: 22px; letter-spacing:-.45px}
     .section-head p{margin:0; color: var(--muted); font-size: 14px}
 
@@ -199,14 +281,29 @@
     .card{
       grid-column: span 6;
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), color-mix(in oklab, var(--card) 70%, transparent));
       box-shadow: var(--shadow2);
       overflow:hidden;
       position:relative;
       transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
     }
-    .card:hover{transform: translateY(-3px); border-color: rgba(255,255,255,.22); background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035))}
+
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(900px 240px at 12% 0%, rgba(124,58,237,.10), transparent 60%);
+      opacity:.0;
+      transition: opacity .25s var(--ease);
+      pointer-events:none;
+    }
+
+    .card:hover{
+      transform: translateY(-4px);
+      border-color: color-mix(in oklab, var(--stroke2) 85%, transparent);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card2) 92%, transparent), color-mix(in oklab, var(--card) 72%, transparent));
+    }
+    .card:hover:before{opacity:1}
 
     .card-inner{padding: 18px 18px 16px; position:relative}
 
@@ -214,58 +311,58 @@
       display:inline-flex; align-items:center; gap:10px;
       padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: color-mix(in oklab, var(--bg2) 40%, transparent);
       color: var(--muted);
-      font-weight: 720;
+      font-weight: 780;
       font-size: 12px;
     }
 
     .card h3{margin: 12px 0 8px; font-size: 18px; letter-spacing:-.3px}
     .card p{margin: 0 0 14px; color: var(--muted); line-height: 1.7; font-size: 14px}
 
-    .links{display:flex; gap:10px; flex-wrap:wrap}
+    .links{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .link{
       display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      font-weight: 720;
+      padding: 9px 11px;
+      border-radius: 14px;
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: color-mix(in oklab, var(--card) 86%, transparent);
+      font-weight: 760;
       font-size: 13px;
       transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
     }
-    .link:hover{transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.2)}
+    .link:hover{transform: translateY(-1px); background: color-mix(in oklab, var(--card2) 92%, transparent); border-color: color-mix(in oklab, var(--stroke2) 85%, transparent)}
 
     .muted{color: var(--muted2)}
 
-    footer{padding: 24px 0 34px; border-top: 1px solid rgba(255,255,255,.08); background: linear-gradient(180deg, rgba(7,8,12,0), rgba(7,8,12,.62))}
-    .footer{display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; color: var(--muted2); font-weight: 650; font-size: 13px}
+    .kpi{display:flex; gap:12px; flex-wrap:wrap; font-size:12px; font-weight:760; color:var(--muted2)}
 
-    /* mobile */
-    @media (max-width: 920px){
-      .hero{grid-template-columns:1fr;}
-      .card{grid-column: span 12;}
-      .navlinks{display:none}
+    /* skeleton */
+    .skeleton{
+      border-radius: var(--radius);
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: linear-gradient(90deg, color-mix(in oklab, var(--card) 70%, transparent), color-mix(in oklab, var(--card2) 85%, transparent), color-mix(in oklab, var(--card) 70%, transparent));
+      background-size: 240% 100%;
+      animation: shimmer 1.2s linear infinite;
+      height: 164px;
     }
+    @keyframes shimmer{to{background-position: -240% 0}}
 
-    /* motion preferences */
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      .logo:after{animation:none}
-      .reveal{opacity:1 !important; transform:none !important}
+    footer{
+      padding: 26px 0 34px;
+      border-top: 1px solid color-mix(in oklab, var(--stroke) 70%, transparent);
+      background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--bg0) 70%, transparent));
     }
-
-    .reveal{opacity:0; transform: translateY(10px); transition: opacity .7s var(--ease), transform .7s var(--ease)}
-    .reveal.show{opacity:1; transform: translateY(0)}
+    .footer{display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; color: var(--muted2); font-weight: 720; font-size: 13px}
 
     .toast{
       position: fixed;
       left: 50%;
       bottom: 18px;
       transform: translateX(-50%);
-      background: rgba(0,0,0,.55);
-      border: 1px solid rgba(255,255,255,.14);
+      background: color-mix(in oklab, var(--bg2) 55%, transparent);
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       color: var(--text);
@@ -273,24 +370,63 @@
       border-radius: 14px;
       box-shadow: var(--shadow2);
       font-size: 13px;
-      font-weight: 720;
+      font-weight: 760;
       opacity: 0;
       pointer-events:none;
       transition: opacity .25s var(--ease), transform .25s var(--ease);
+      z-index:80;
     }
     .toast.show{opacity:1; transform: translateX(-50%) translateY(-2px)}
 
-    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: .95em}
+    .skip{
+      position:absolute;
+      left: 10px;
+      top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid color-mix(in oklab, var(--stroke) 85%, transparent);
+      background: color-mix(in oklab, var(--bg1) 88%, transparent);
+      transform: translateY(-140%);
+      transition: transform .2s var(--ease);
+      z-index:100;
+      font-weight:760;
+      color:var(--muted);
+    }
+    .skip:focus{transform: translateY(0)}
+
+    code{font-family: var(--mono); font-size: .95em}
+
+    /* mobile */
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr;}
+      .card{grid-column: span 12;}
+      .navlinks{display:none}
+      .menuBtn{display:inline-flex}
+    }
+
+    /* motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .logo:after{animation:none}
+      .reveal{opacity:1 !important; transform:none !important}
+      .cursor-glow{display:none}
+      .skeleton{animation:none}
+    }
+
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .7s var(--ease), transform .7s var(--ease)}
+    .reveal.show{opacity:1; transform: translateY(0)}
 
   </style>
 </head>
 <body>
+  <a class="skip" href="#work">Skip to work</a>
   <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true" id="cursorGlow"></div>
 
   <header>
     <div class="wrap">
       <nav class="nav" aria-label="Primary">
-        <a class="brand" href="#top">
+        <a class="brand" href="#top" aria-label="Kebaz home">
           <span class="logo" aria-hidden="true"></span>
           <span>Kebaz</span>
         </a>
@@ -301,13 +437,29 @@
           <a href="#about">About</a>
         </div>
 
-        <div class="cta" style="display:flex; gap:10px; align-items:center">
+        <div class="cta">
+          <button class="btn" id="themeBtn" type="button" aria-label="Toggle theme" title="Toggle theme">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v2m0 14v2M4.2 6.2l1.4 1.4m12.8 12.8 1.4 1.4M3 12h2m14 0h2M6.2 19.8l1.4-1.4M16.4 7.6l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/></svg>
+            Theme
+          </button>
           <a class="btn" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">GitHub</a>
           <a class="btn primary" href="#work">Explore</a>
+          <button class="btn menuBtn" id="menuBtn" type="button" aria-label="Open menu" title="Menu">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
         </div>
       </nav>
     </div>
   </header>
+
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawerPanel" role="dialog" aria-label="Menu">
+      <a href="#work">Work</a>
+      <a href="#stack">Stack</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+  </div>
 
   <main id="top">
     <div class="wrap">
@@ -316,18 +468,24 @@
           <div class="panel-inner">
             <div class="kicker"><span class="dot" aria-hidden="true"></span> Web Developer • Software Engineer</div>
             <h1>
-              I build clean, fast
+              Clean UI.
               <br />
-              web experiences.
+              Strong systems.
             </h1>
             <p class="lead">
-              I’m Kebaz — focused on performance, sharp UI, and engineering that stays maintainable.
-              I like minimal interfaces, smooth motion, and systems that scale without becoming messy.
+              I’m Kebaz — I build fast, minimal web experiences with smooth motion and engineering that stays maintainable.
+              Performance, accessibility, and polish — always.
             </p>
 
             <div class="hero-actions">
-              <a class="btn primary" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">View GitHub</a>
-              <a class="btn" href="#work">Selected work</a>
+              <a class="btn primary" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 7h7m0 0v7m0-7L10 18l-4-4-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                View GitHub
+              </a>
+              <a class="btn" href="#work">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0 6-6m-6 6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                Selected work
+              </a>
             </div>
 
             <div class="chips" aria-label="Highlights">
@@ -347,9 +505,10 @@
                   <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0" stop-color="rgba(124,58,237,.95)" />
                     <stop offset=".65" stop-color="rgba(56,189,248,.85)" />
+                    <stop offset="1" stop-color="rgba(34,197,94,.55)" />
                   </linearGradient>
                 </defs>
-                <g fill="none" stroke="url(#g)" stroke-width="2.2" opacity=".7">
+                <g fill="none" stroke="url(#g)" stroke-width="2.2" opacity=".72">
                   <path d="M-20,120 C120,30 210,40 360,160 C520,290 620,250 840,120" />
                   <path d="M-30,220 C120,130 240,120 380,240 C520,360 660,380 850,250" />
                   <path d="M-40,330 C120,260 260,220 420,330 C590,450 680,470 860,360" />
@@ -364,6 +523,14 @@
               <div class="meta-row"><span>Strength</span><strong>Shipping</strong></div>
               <div class="meta-row"><span>Link</span><strong><a class="muted" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">github.com/KebazZ-web</a></strong></div>
             </div>
+
+            <div style="height:14px"></div>
+
+            <div class="kpi" aria-label="Quick stats">
+              <span id="kpiRepos">Repos: —</span>
+              <span id="kpiStars">Stars: —</span>
+              <span id="kpiUpdated">Updated: —</span>
+            </div>
           </div>
         </aside>
       </section>
@@ -372,12 +539,17 @@
         <div class="section-head">
           <div>
             <h2>Selected work</h2>
-            <p>Auto-pulled from GitHub so it’s always up to date.</p>
+            <p>Auto-pulled from GitHub — always up to date.</p>
           </div>
           <a class="btn" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">All repos</a>
         </div>
 
-        <div class="grid" id="repoGrid" aria-live="polite"></div>
+        <div class="grid" id="repoGrid" aria-live="polite">
+          <div class="skeleton" style="grid-column: span 6;"></div>
+          <div class="skeleton" style="grid-column: span 6;"></div>
+          <div class="skeleton" style="grid-column: span 6;"></div>
+          <div class="skeleton" style="grid-column: span 6;"></div>
+        </div>
 
         <div class="card reveal" id="noRepos" style="grid-column: span 12; display:none;">
           <div class="card-inner">
@@ -472,6 +644,9 @@
     const PROFILE = {
       name: "Kebaz",
       github: "KebazZ-web",
+      themeKey: "kebaz_theme",
+      repoCacheKey: "kebaz_repo_cache_v1",
+      repoCacheTtlMs: 1000 * 60 * 30, // 30 min
     };
 
     const $ = (sel, root=document) => root.querySelector(sel);
@@ -484,9 +659,54 @@
       toast._t = window.setTimeout(()=> el.classList.remove("show"), 1700);
     }
 
+    // Year
     $("#year").textContent = new Date().getFullYear();
 
-    // Reveal animations
+    // Theme toggle
+    function applyTheme(t){
+      document.documentElement.setAttribute("data-theme", t);
+      try{ localStorage.setItem(PROFILE.themeKey, t); }catch{}
+    }
+    const savedTheme = (()=>{ try{return localStorage.getItem(PROFILE.themeKey);}catch{return null;} })();
+    if(savedTheme === "light" || savedTheme === "dark") applyTheme(savedTheme);
+
+    $("#themeBtn").addEventListener("click", ()=>{
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = cur === "light" ? "dark" : "light";
+      applyTheme(next);
+      toast(next === "light" ? "Light mode" : "Dark mode");
+    });
+
+    // Mobile menu
+    const drawer = $("#drawer");
+    const menuBtn = $("#menuBtn");
+    function closeDrawer(){
+      drawer.style.display = "none";
+      drawer.setAttribute("aria-hidden","true");
+    }
+    function openDrawer(){
+      drawer.style.display = "block";
+      drawer.setAttribute("aria-hidden","false");
+    }
+    menuBtn?.addEventListener("click", ()=> openDrawer());
+    drawer?.addEventListener("click", (e)=>{ if(e.target === drawer) closeDrawer(); });
+    drawer?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
+    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeDrawer(); });
+
+    // Cursor glow
+    const glow = $("#cursorGlow");
+    let glowRAF = null;
+    window.addEventListener("mousemove", (e)=>{
+      if(!glow) return;
+      if(glowRAF) return;
+      glowRAF = requestAnimationFrame(()=>{
+        glow.style.left = e.clientX + "px";
+        glow.style.top = e.clientY + "px";
+        glowRAF = null;
+      });
+    }, {passive:true});
+
+    // Reveal
     const io = new IntersectionObserver((entries)=>{
       for(const ent of entries){
         if(ent.isIntersecting) ent.target.classList.add("show");
@@ -494,35 +714,9 @@
     }, {threshold: 0.14});
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-    // Build repo cards from GitHub API
-    function iconSvg(){
-      return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 7h7m0 0v7m0-7L10 18l-4-4-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    }
-
-    function repoCard(repo){
-      const lang = repo.language ? repo.language : "";
-      const stars = (repo.stargazers_count ?? 0);
-      const updated = new Date(repo.updated_at).toLocaleDateString(undefined, {year:'numeric', month:'short'});
-      const desc = repo.description ? repo.description : "A project by Kebaz.";
-      const home = repo.homepage && repo.homepage.startsWith("http") ? repo.homepage : "";
-
-      return `
-        <article class="card reveal" style="grid-column: span 6;">
-          <div class="card-inner">
-            <span class="badge">${lang || "Repository"}</span>
-            <h3>${repo.name}</h3>
-            <p>${escapeHtml(desc)}</p>
-            <div class="links" style="margin-bottom:10px">
-              <a class="link" href="${repo.html_url}" target="_blank" rel="noreferrer">${iconSvg()} Repo</a>
-              ${home ? `<a class="link" href="${home}" target="_blank" rel="noreferrer">Live</a>` : ``}
-            </div>
-            <div class="muted" style="font-size:12px; font-weight:650; display:flex; gap:12px; flex-wrap:wrap">
-              <span>★ ${stars}</span>
-              <span>Updated ${updated}</span>
-            </div>
-          </div>
-        </article>
-      `;
+    // Repo cards
+    function iconSvg(path){
+      return `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="${path}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     }
 
     function escapeHtml(str){
@@ -534,9 +728,76 @@
         .replaceAll("'","&#039;");
     }
 
+    function repoCard(repo){
+      const lang = repo.language ? repo.language : "Repository";
+      const stars = (repo.stargazers_count ?? 0);
+      const forks = (repo.forks_count ?? 0);
+      const updated = new Date(repo.updated_at);
+      const updatedLabel = updated.toLocaleDateString(undefined, {year:'numeric', month:'short'});
+      const desc = repo.description ? repo.description : "A project by Kebaz.";
+      const home = repo.homepage && repo.homepage.startsWith("http") ? repo.homepage : "";
+
+      return `
+        <article class="card reveal" style="grid-column: span 6;">
+          <div class="card-inner">
+            <span class="badge">${escapeHtml(lang)}</span>
+            <h3>${escapeHtml(repo.name)}</h3>
+            <p>${escapeHtml(desc)}</p>
+
+            <div class="links" style="margin-bottom:10px">
+              <a class="link" href="${repo.html_url}" target="_blank" rel="noreferrer">
+                ${iconSvg("M14 7h7m0 0v7m0-7L10 18l-4-4-3 3")}
+                Repo
+              </a>
+              ${home ? `<a class="link" href="${home}" target="_blank" rel="noreferrer">Live</a>` : ``}
+            </div>
+
+            <div class="kpi">
+              <span>★ ${stars}</span>
+              <span>⑂ ${forks}</span>
+              <span>Updated ${updatedLabel}</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function setKpis(repos){
+      const totalRepos = repos.length;
+      const totalStars = repos.reduce((s,r)=> s + (r.stargazers_count||0), 0);
+      const latest = repos
+        .map(r => new Date(r.updated_at))
+        .sort((a,b)=> b - a)[0];
+
+      $("#kpiRepos").textContent = `Repos: ${totalRepos}`;
+      $("#kpiStars").textContent = `Stars: ${totalStars}`;
+      $("#kpiUpdated").textContent = latest ? `Updated: ${latest.toLocaleDateString(undefined,{year:'numeric',month:'short'})}` : "Updated: —";
+    }
+
+    function readCache(){
+      try{
+        const raw = localStorage.getItem(PROFILE.repoCacheKey);
+        if(!raw) return null;
+        const obj = JSON.parse(raw);
+        if(!obj?.t || !obj?.data) return null;
+        if(Date.now() - obj.t > PROFILE.repoCacheTtlMs) return null;
+        return obj.data;
+      }catch{return null;}
+    }
+
+    function writeCache(data){
+      try{ localStorage.setItem(PROFILE.repoCacheKey, JSON.stringify({t: Date.now(), data})); }catch{}
+    }
+
     async function loadRepos(){
       const grid = $("#repoGrid");
       const empty = $("#noRepos");
+
+      const cached = readCache();
+      if(cached){
+        renderRepos(cached);
+        return;
+      }
 
       try{
         const res = await fetch(`https://api.github.com/users/${PROFILE.github}/repos?per_page=100&sort=updated`, {
@@ -545,30 +806,37 @@
 
         if(!res.ok) throw new Error("GitHub API error");
         const repos = await res.json();
+        writeCache(repos);
+        renderRepos(repos);
 
-        const publicRepos = (Array.isArray(repos) ? repos : [])
+      } catch (e){
+        grid.innerHTML = "";
+        empty.style.display = "block";
+        io.observe(empty);
+      }
+
+      function renderRepos(repos){
+        const list = (Array.isArray(repos) ? repos : [])
           .filter(r => !r.fork && !r.archived)
           .sort((a,b) => {
             // prioritize stars, then recency
             const s = (b.stargazers_count||0) - (a.stargazers_count||0);
             if(s !== 0) return s;
             return new Date(b.updated_at) - new Date(a.updated_at);
-          })
-          .slice(0, 6);
+          });
 
-        if(publicRepos.length === 0){
+        setKpis(list);
+
+        const featured = list.slice(0, 6);
+        if(featured.length === 0){
+          grid.innerHTML = "";
           empty.style.display = "block";
           io.observe(empty);
           return;
         }
 
-        grid.innerHTML = publicRepos.map(repoCard).join("");
+        grid.innerHTML = featured.map(repoCard).join("");
         grid.querySelectorAll(".reveal").forEach(el => io.observe(el));
-
-      } catch (e){
-        // fail gracefully
-        empty.style.display = "block";
-        io.observe(empty);
       }
     }
 
