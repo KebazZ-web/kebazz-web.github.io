@@ -84,7 +84,7 @@
       position:fixed; inset:-30%;
       opacity:.08;
       filter: contrast(120%) brightness(120%);
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http:
       transform: translate3d(0,0,0);
     }
 
@@ -442,7 +442,8 @@
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v2m0 14v2M4.2 6.2l1.4 1.4m12.8 12.8 1.4 1.4M3 12h2m14 0h2M6.2 19.8l1.4-1.4M16.4 7.6l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/></svg>
             Theme
           </button>
-          <a class="btn" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="https:
+          <span class="btn" aria-label="Discord">Discord: kebazlovesjava</span>
           <a class="btn primary" href="#work">Explore</a>
           <button class="btn menuBtn" id="menuBtn" type="button" aria-label="Open menu" title="Menu">
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -457,7 +458,7 @@
       <a href="#work">Work</a>
       <a href="#stack">Stack</a>
       <a href="#about">About</a>
-      <a href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https:
     </div>
   </div>
 
@@ -478,7 +479,7 @@
             </p>
 
             <div class="hero-actions">
-              <a class="btn primary" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">
+              <a class="btn primary" href="https:
                 <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 7h7m0 0v7m0-7L10 18l-4-4-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 View GitHub
               </a>
@@ -500,7 +501,7 @@
         <aside class="panel reveal" aria-label="Profile">
           <div class="panel-inner">
             <div class="avatar" aria-hidden="true">
-              <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 800 600" xmlns="http:
                 <defs>
                   <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0" stop-color="rgba(124,58,237,.95)" />
@@ -521,7 +522,7 @@
               <div class="meta-row"><span>Focus</span><strong>Frontend + Systems</strong></div>
               <div class="meta-row"><span>Style</span><strong>Minimal • Premium</strong></div>
               <div class="meta-row"><span>Strength</span><strong>Shipping</strong></div>
-              <div class="meta-row"><span>Link</span><strong><a class="muted" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">github.com/KebazZ-web</a></strong></div>
+              <div class="meta-row"><span>Link</span><strong><a class="muted" href="https:
             </div>
 
             <div style="height:14px"></div>
@@ -541,7 +542,7 @@
             <h2>Selected work</h2>
             <p>Auto-pulled from GitHub — always up to date.</p>
           </div>
-          <a class="btn" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">All repos</a>
+          <a class="btn" href="https:
         </div>
 
         <div class="grid" id="repoGrid" aria-live="polite">
@@ -560,7 +561,7 @@
               Until then, your GitHub link is live and ready.
             </p>
             <div class="links">
-              <a class="link" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">Open GitHub</a>
+              <a class="link" href="https:
             </div>
           </div>
         </div>
@@ -617,7 +618,7 @@
               I build with an eye for speed and details — the kind you feel, even if you don’t notice them.
             </p>
             <div class="links">
-              <a class="link" href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">GitHub</a>
+              <a class="link" href="https:
               <a class="link" href="#top">Back to top</a>
             </div>
           </div>
@@ -633,7 +634,7 @@
       <div style="display:flex; gap:12px; flex-wrap:wrap">
         <a href="#work">Work</a>
         <a href="#stack">Stack</a>
-        <a href="https://github.com/KebazZ-web" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https:
       </div>
     </div>
   </footer>
@@ -646,7 +647,7 @@
       github: "KebazZ-web",
       themeKey: "kebaz_theme",
       repoCacheKey: "kebaz_repo_cache_v1",
-      repoCacheTtlMs: 1000 * 60 * 30, // 30 min
+      repoCacheTtlMs: 1000 * 60 * 30, 
     };
 
     const $ = (sel, root=document) => root.querySelector(sel);
@@ -659,10 +660,10 @@
       toast._t = window.setTimeout(()=> el.classList.remove("show"), 1700);
     }
 
-    // Year
+    
     $("#year").textContent = new Date().getFullYear();
 
-    // Theme toggle
+    
     function applyTheme(t){
       document.documentElement.setAttribute("data-theme", t);
       try{ localStorage.setItem(PROFILE.themeKey, t); }catch{}
@@ -677,7 +678,7 @@
       toast(next === "light" ? "Light mode" : "Dark mode");
     });
 
-    // Mobile menu
+    
     const drawer = $("#drawer");
     const menuBtn = $("#menuBtn");
     function closeDrawer(){
@@ -693,7 +694,7 @@
     drawer?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
     window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeDrawer(); });
 
-    // Cursor glow
+    
     const glow = $("#cursorGlow");
     let glowRAF = null;
     window.addEventListener("mousemove", (e)=>{
@@ -706,7 +707,7 @@
       });
     }, {passive:true});
 
-    // Reveal
+    
     const io = new IntersectionObserver((entries)=>{
       for(const ent of entries){
         if(ent.isIntersecting) ent.target.classList.add("show");
@@ -714,7 +715,7 @@
     }, {threshold: 0.14});
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-    // Repo cards
+    
     function iconSvg(path){
       return `<svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="${path}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     }
@@ -800,7 +801,7 @@
       }
 
       try{
-        const res = await fetch(`https://api.github.com/users/${PROFILE.github}/repos?per_page=100&sort=updated`, {
+        const res = await fetch(`https:
           headers: {"Accept":"application/vnd.github+json"}
         });
 
@@ -819,7 +820,7 @@
         const list = (Array.isArray(repos) ? repos : [])
           .filter(r => !r.fork && !r.archived)
           .sort((a,b) => {
-            // prioritize stars, then recency
+            
             const s = (b.stargazers_count||0) - (a.stargazers_count||0);
             if(s !== 0) return s;
             return new Date(b.updated_at) - new Date(a.updated_at);
