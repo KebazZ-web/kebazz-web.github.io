@@ -215,6 +215,21 @@
         .toast { position: fixed; bottom: 26px; right: 26px; background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; padding: 15px 22px; border-radius: 12px; transform: translateY(120px); opacity: 0; transition: all 0.4s; z-index: 300; font-weight: 500; }
         .toast.show { transform: translateY(0); opacity: 1; }
 
+        /* FAQ Section */
+        .faq-section { max-width: 750px; margin: 0 auto; padding: 100px 24px; }
+        .faq-header { text-align: center; margin-bottom: 44px; }
+        .faq-header h2 { font-size: 40px; margin-bottom: 12px; }
+        .faq-header p { color: var(--text-secondary); font-size: 16px; }
+        .faq-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; margin-bottom: 14px; overflow: hidden; transition: all 0.3s; }
+        .faq-item:hover { border-color: rgba(99, 102, 241, 0.3); }
+        .faq-question { width: 100%; background: none; border: none; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; color: var(--text-primary); font-size: 16px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; transition: color 0.3s; }
+        .faq-question:hover { color: var(--primary); }
+        .faq-icon { font-size: 14px; transition: transform 0.3s; color: var(--text-secondary); }
+        .faq-item.open .faq-icon { transform: rotate(180deg); color: var(--primary); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+        .faq-item.open .faq-answer { max-height: 200px; }
+        .faq-answer p { padding: 0 24px 20px; color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+
         @media (max-width: 900px) {
             .pricing-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
             .pricing-card.popular { transform: none; }
@@ -228,7 +243,7 @@
             .hero-buttons { flex-direction: column; }
             .hero-btn { width: 100%; text-align: center; }
             .process-grid { grid-template-columns: 1fr; }
-            .section-header h2, .contact-content h2 { font-size: 28px; }
+            .section-header h2, .contact-content h2, .faq-header h2 { font-size: 28px; }
             nav { display: none; }
             .logo { font-size: 18px; }
         }
@@ -246,6 +261,7 @@
             <div class="logo">Wanna Build<i class="fas fa-question logo-icon"></i></div>
             <nav>
                 <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
                 <a href="#tech">Stack</a>
                 <a href="#process">Process</a>
                 <a href="#contact" class="cta-btn">Contact</a>
@@ -397,6 +413,60 @@
         </div>
     </section>
 
+    <section class="faq-section" id="faq">
+        <div class="faq-header">
+            <h2>FAQ</h2>
+            <p>Common questions answered</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    How long does a project take?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Typical projects take 1-3 weeks depending on complexity. A simple landing page is usually ready in 5-7 days, while e-commerce sites may take 3-4 weeks.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Do you offer revisions?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! Each plan includes up to 3 rounds of revisions to ensure the final product matches your vision perfectly.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What's included in the price?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>All prices include design, development, hosting setup, SSL certificate, and 30 days of free support after launch.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do payments work?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>I split payments into two installments - 50% upfront to begin work, and 50% upon completion before launch.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can you maintain my site after launch?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolutely! I offer monthly maintenance packages starting at $50/month which includes updates, security patches, and minor changes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="contact-section" id="contact">
         <div class="contact-content">
             <h2>Let's Work Together</h2>
@@ -471,6 +541,14 @@
             } catch (error) { showToast('Error. Try again.'); }
             btn.textContent = 'Send Message →';
             btn.disabled = false;
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                faqItem.classList.toggle('open');
+            });
         });
     </script>
 </body>
