@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanna Build?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #22d3ee;
+            --background: #050507;
+            --card-bg: #0c0c10;
+            --card-border: #1a1a22;
+            --text-primary: #fafafa;
+            --text-secondary: #71717a;
+            --accent: #a855f7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); } 50% { box-shadow: 0 0 35px rgba(99, 102, 241, 0.5); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        header {
+            background: rgba(5, 5, 7, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            animation: fadeInUp 0.6s ease;
+        }
+        .header-content { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 16px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo { 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: var(--text-primary); 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            animation: float 3s ease-in-out infinite; 
+            cursor: default; 
+        }
+        .logo-icon { 
+            font-size: 20px; 
+            animation: spin 6s linear infinite; 
+        }
+        nav { display: flex; align-items: center; gap: 20px; }
+        nav a { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 14px; transition: color 0.3s; }
+        nav a:hover { color: var(--text-primary); }
+        .cta-btn { 
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            color: white; 
+            padding: 10px 18px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 13px; 
+            transition: all 0.3s; 
+            animation: pulse-glow 3s infinite; 
+        }
+        .cta-btn:hover { transform: translateY(-2px); }
+
+        .hero { 
+            margin-top: 70px; 
+            padding: 100px 20px; 
+            text-align: center; 
+            background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.15) 0%, transparent 60%), var(--background); 
+            position: relative; 
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            background: rgba(99, 102, 241, 0.1); 
+            border: 1px solid rgba(99, 102, 241, 0.2); 
+            color: var(--primary); 
+            padding: 8px 16px; 
+            border-radius: 30px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            margin-bottom: 24px; 
+            animation: fadeInUp 0.7s; 
+        }
+        .hero-badge::before { 
+            content: ''; 
+            width: 8px; 
+            height: 8px; 
+            background: var(--secondary); 
+            border-radius: 50%; 
+            animation: pulse-glow 2s infinite; 
+        }
+        .hero h1 { font-size: 42px; margin-bottom: 16px; animation: fadeInUp 0.7s 0.15s both; }
+        .hero h1 span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; animation: fadeInUp 0.7s 0.3s both; }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; animation: fadeInUp 0.7s 0.45s both; }
+        .hero-btn { padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.3s; }
+        .hero-btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; animation: pulse-glow 3s infinite; }
+        .hero-btn.primary:hover { transform: translateY(-2px); }
+        .hero-btn.secondary { background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-border); }
+        .hero-btn.secondary:hover { border-color: var(--primary); }
+
+        .pricing-section { max-width: 950px; margin: 0 auto; padding: 80px 20px; }
+        .section-header { text-align: center; margin-bottom: 48px; }
+        .section-header h2 { font-size: 36px; margin-bottom: 12px; }
+        .section-header p { color: var(--text-secondary); font-size: 15px; }
+
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+        .pricing-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 28px 24px; transition: all 0.3s; }
+        .pricing-card:hover { border-color: rgba(99, 102, 241, 0.3); transform: translateY(-4px); }
+        .pricing-card.popular { border-color: var(--primary); background: linear-gradient(180deg, rgba(99, 102, 241, 0.06) 0%, var(--card-bg) 60%); transform: scale(1.03); z-index: 1; }
+        .pricing-card.popular:hover { transform: scale(1.03) translateY(-4px); }
+
+        .popular-badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 5px 14px; border-radius: 16px; font-size: 11px; font-weight: 600; }
+        .pricing-name { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .pricing-price { font-size: 40px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-bottom: 4px; }
+        .pricing-price span { font-size: 14px; color: var(--text-secondary); font-weight: 400; }
+        .pricing-desc { color: var(--text-secondary); font-size: 13px; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--card-border); }
+        .pricing-features { list-style: none; margin-bottom: 24px; }
+        .pricing-features li { color: var(--text-secondary); font-size: 13px; padding: 8px 0; display: flex; align-items: center; gap: 8px; }
+        .pricing-features li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--secondary); font-size: 11px; }
+        .pricing-btn { width: 100%; background: transparent; color: var(--text-primary); border: 1px solid var(--card-border); padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .pricing-btn:hover { background: var(--primary); border-color: var(--primary); color: white; }
+        .pricing-card.popular .pricing-btn { background: var(--primary); border-color: var(--primary); color: white; }
+        .pricing-card.popular .pricing-btn:hover { background: var(--primary-dark); }
+
+        .tech-section { background: var(--card-bg); padding: 60px 0; overflow: hidden; }
+        .tech-track { display: flex; gap: 16px; animation: scroll 25s linear infinite; width: max-content; padding: 0 20px; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 8px)); } }
+        .tech-item { display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: var(--background); border: 1px solid var(--card-border); border-radius: 10px; transition: all 0.3s; white-space: nowrap; }
+        .tech-item:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .tech-item i { font-size: 18px; width: 22px; text-align: center; }
+        .tech-name { font-weight: 600; font-size: 13px; }
+
+        .process-section { max-width: 850px; margin: 0 auto; padding: 80px 20px; }
+        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+        .process-step { text-align: center; padding: 24px 12px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; transition: all 0.3s; }
+        .process-step:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .step-num { width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; margin: 0 auto 12px; }
+        .process-step h3 { font-size: 16px; margin-bottom: 6px; }
+        .process-step p { color: var(--text-secondary); font-size: 12px; }
+
+        .testimonials-section { background: var(--card-bg); padding: 80px 20px; }
+        .testimonials-content { max-width: 700px; margin: 0 auto; }
+        .testimonial-card { background: var(--background); border: 1px solid var(--card-border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+        .testimonial-text { font-size: 15px; line-height: 1.6; margin-bottom: 18px; color: var(--text-primary); }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-avatar { width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .testimonial-name { font-weight: 600; font-size: 14px; }
+        .testimonial-role { color: var(--text-secondary); font-size: 12px; }
+
+        .contact-section { padding: 80px 20px; background: radial-gradient(ellipse 60% 50% at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 60%), var(--background); }
+        .contact-content { max-width: 500px; margin: 0 auto; text-align: center; }
+        .contact-content h2 { font-size: 36px; margin-bottom: 12px; }
+        .contact-content p { color: var(--text-secondary); font-size: 15px; margin-bottom: 28px; }
+        .contact-form { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 28px; }
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--text-secondary); font-size: 13px; }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; 
+            padding: 14px 16px; 
+            background: var(--background); 
+            border: 1px solid var(--card-border); 
+            border-radius: 10px; 
+            color: var(--text-primary); 
+            font-size: 15px; 
+            font-family: 'Inter', sans-serif; 
+            transition: border-color 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        .submit-btn { width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .submit-btn:hover { transform: translateY(-2px); }
+
+        footer { background: var(--card-bg); border-top: 1px solid var(--card-border); padding: 28px 20px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 14px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary); }
+        .copyright { color: #444; font-size: 12px; }
+
+        .toast { position: fixed; bottom: 24px; right: 24px; background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; padding: 14px 20px; border-radius: 10px; transform: translateY(100px); opacity: 0; transition: all 0.4s; z-index: 300; font-weight: 500; font-size: 14px; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 360px; }
+            .pricing-card.popular { transform: none; }
+            .pricing-card.popular:hover { transform: translateY(-4px); }
+            .process-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 15px; }
+            .hero-buttons { flex-direction: column; }
+            .hero-btn { width: 100%; text-align: center; }
+            .process-grid { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 28px; }
+            .contact-content h2 { font-size: 28px; }
+            nav a { display: none; }
+            .logo { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                Wanna Build<i class="fas fa-question logo-icon"></i>
+            </div>
+            <nav>
+                <a href="#pricing">Pricing</a>
+                <a href="#tech">Stack</a>
+                <a href="#process">Process</a>
+                <a href="#contact" class="cta-btn">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Available for Work</div>
+            <h1>Let's Build Something <span>Amazing</span></h1>
+            <p>Professional web development services. Modern, fast, and user-friendly websites tailored to your vision.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="hero-btn primary">View Pricing →</a>
+                <a href="#contact" class="hero-btn secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="pricing">
+        <div class="section-header">
+            <h2>Pricing</h2>
+            <p>Simple, transparent pricing</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-name">Landing Page</div>
+                <div class="pricing-price">$299</div>
+                <div class="pricing-desc">Perfect for small businesses</div>
+                <ul class="pricing-features">
+                    <li>Single page design</li>
+                    <li>Mobile responsive</li>
+                    <li>Contact form</li>
+                    <li>Basic SEO</li>
+                    <li>Social links</li>
+                </ul>
+                <button class="pricing-btn" onclick="selectService('Landing Page', 299)">Choose Plan</button>
+            </div>
+            <div class="pricing-card popular" style="position:relative;">
+                <div class="popular-badge">Most Popular</div>
+                <div class="pricing-name">Business</div>
+                <div class="pricing-price">$699</div>
+                <div class="pricing-desc">For growing businesses</div>
+                <ul class="pricing-features">
+                    <li>Up to 5 pages</li>
+                    <li>Mobile responsive</li>
+                    <li>Contact form</li>
+                    <li>Advanced SEO</li>
+                    <li>Blog section</li>
+                    <li>Analytics</li>
+                </ul>
+                <button class="pricing-btn" onclick="selectService('Business Website', 699)">Choose Plan</button>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-name">E-Commerce</div>
+                <div class="pricing-price">$1,499</div>
+                <div class="pricing-desc">Full online store</div>
+                <ul class="pricing-features">
+                    <li>Up to 25 products</li>
+                    <li>Payment integration</li>
+                    <li>Shopping cart</li>
+                    <li>Admin dashboard</li>
+                    <li>Order management</li>
+                    <li>Email notifications</li>
+                </ul>
+                <button class="pricing-btn" onclick="selectService('E-Commerce Store', 1499)">Choose Plan</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech-section" id="tech">
+        <div class="tech-track">
+            <div class="tech-item"><i class="fab fa-react" style="color:#61dafb;"></i><span class="tech-name">React</span></div>
+            <div class="tech-item"><i class="fab fa-js" style="color:#f7df1e;"></i><span class="tech-name">JavaScript</span></div>
+            <div class="tech-item"><i class="fab fa-html5" style="color:#e34f26;"></i><span class="tech-name">HTML5</span></div>
+            <div class="tech-item"><i class="fab fa-css3-alt" style="color:#264de4;"></i><span class="tech-name">CSS3</span></div>
+            <div class="tech-item"><i class="fab fa-node" style="color:#68a063;"></i><span class="tech-name">Node.js</span></div>
+            <div class="tech-item"><i class="fab fa-python" style="color:#3776ab;"></i><span class="tech-name">Python</span></div>
+            <div class="tech-item"><i class="fab fa-aws" style="color:#ff9900;"></i><span class="tech-name">AWS</span></div>
+            <div class="tech-item"><i class="fab fa-docker" style="color:#2496ed;"></i><span class="tech-name">Docker</span></div>
+            <div class="tech-item"><i class="fab fa-git-alt" style="color:#f05032;"></i><span class="tech-name">Git</span></div>
+            <div class="tech-item"><i class="fab fa-figma" style="color:#f472b6;"></i><span class="tech-name">Figma</span></div>
+            <div class="tech-item"><i class="fab fa-react" style="color:#61dafb;"></i><span class="tech-name">React</span></div>
+            <div class="tech-item"><i class="fab fa-js" style="color:#f7df1e;"></i><span class="tech-name">JavaScript</span></div>
+            <div class="tech-item"><i class="fab fa-html5" style="color:#e34f26;"></i><span class="tech-name">HTML5</span></div>
+            <div class="tech-item"><i class="fab fa-css3-alt" style="color:#264de4;"></i><span class="tech-name">CSS3</span></div>
+            <div class="tech-item"><i class="fab fa-node" style="color:#68a063;"></i><span class="tech-name">Node.js</span></div>
+            <div class="tech-item"><i class="fab fa-python" style="color:#3776ab;"></i><span class="tech-name">Python</span></div>
+            <div class="tech-item"><i class="fab fa-aws" style="color:#ff9900;"></i><span class="tech-name">AWS</span></div>
+            <div class="tech-item"><i class="fab fa-docker" style="color:#2496ed;"></i><span class="tech-name">Docker</span></div>
+            <div class="tech-item"><i class="fab fa-git-alt" style="color:#f05032;"></i><span class="tech-name">Git</span></div>
+            <div class="tech-item"><i class="fab fa-figma" style="color:#f472b6;"></i><span class="tech-name">Figma</span></div>
+        </div>
+    </section>
+
+    <section class="process-section" id="process">
+        <div class="section-header">
+            <h2>How I Work</h2>
+            <p>Simple process to get your project done</p>
+        </div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-num">1</div>
+                <h3>Discovery</h3>
+                <p>We discuss</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">2</div>
+                <h3>Design</h3>
+                <p>Mockups</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">3</div>
+                <h3>Build</h3>
+                <p>Development</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">4</div>
+                <h3>Launch</h3>
+                <p>Goes live</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="section-header">
+            <h2>Client Feedback</h2>
+            <p>What people say</p>
+        </div>
+        <div class="testimonials-content">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Absolutely fantastic work! Delivered on time and exceeded expectations."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">SM</div>
+                    <div><div class="testimonial-name">Sarah Mitchell</div><div class="testimonial-role">CEO, TechStart</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Professional, responsive, and talented. Highly recommend!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">JC</div>
+                    <div><div class="testimonial-name">James Chen</div><div class="testimonial-role">Founder, DesignCo</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <h2>Let's Work Together</h2>
+            <p>Fill out the form and I'll get back to you within 24 hours</p>
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/xeerlkwp" method="POST">
+                <div class="form-group"><label>Your Name</label><input type="text" name="name" required placeholder="John Doe"></div>
+                <div class="form-group"><label>Email</label><input type="email" name="email" required placeholder="john@example.com"></div>
+                <div class="form-group"><label>Project Type</label>
+                    <select name="service" required>
+                        <option value="">Select...</option>
+                        <option value="Landing Page">Landing Page - $299</option>
+                        <option value="Business Website">Business Website - $699</option>
+                        <option value="E-Commerce Store">E-Commerce Store - $1,499</option>
+                        <option value="Custom">Custom Project</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Message</label><textarea name="message" required placeholder="Tell me about your project..."></textarea></div>
+                <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+        </div>
+        <p class="copyright">© 2026. All rights reserved.</p>
+    </footer>
+
+    <div class="toast" id="toast"><span id="toastMessage">Message sent!</span></div>
+
+    <script>
+        function selectService(serviceName, price) {
+            document.querySelector('select[name="service"]').value = serviceName;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Selected: ${serviceName} - $${price}`);
+        }
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            try {
+                const response = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+                if (response.ok) { showToast('Message sent!'); this.reset(); }
+            } catch (error) { showToast('Error. Try again.'); }
+            btn.textContent = 'Send Message →';
+            btn.disabled = false;
+        });
+    </script>
+</body>
+</html>
